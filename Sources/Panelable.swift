@@ -28,4 +28,7 @@ public protocol PanelNotifications: AnyObject {
 
     /// Notification when the panel is expanded.
     func panelDidOpen()
+    
+    /// Notification when the panel is dismiss.
+    func panelDidDimiss()
 }
