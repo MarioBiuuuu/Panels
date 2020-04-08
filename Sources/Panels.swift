@@ -93,6 +93,7 @@ public class Panels {
             self.panel?.removeContainer()
             self.panel = nil
             completion?()
+            self.delegate?.panelDidDismiss()
         }
     }
 
