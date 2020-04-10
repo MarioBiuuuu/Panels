@@ -86,16 +86,15 @@ public class Panels {
             completion?()
             return
         }
-            panelView.frame.origin = CGPoint(x: 0, y: self.containerView!.frame.size.height)
 
-//         UIView.animate(withDuration: configuration.dismissAnimationDuration, animations: {
-//             panelView.frame.origin = CGPoint(x: 0, y: self.containerView!.frame.size.height)
-//         }) { _ in
-//             self.panel?.removeContainer()
-//             self.panel = nil
-//             completion?()
-//             self.delegate?.panelDidDimiss()
-//         }
+        UIView.animate(withDuration: configuration.dismissAnimationDuration, animations: {
+            panelView.frame.origin = CGPoint(x: 0, y: self.containerView!.frame.size.height)
+        }) { _ in
+            self.panel?.removeContainer()
+            self.panel = nil
+            completion?()
+            self.delegate?.panelDidDimiss()
+        }
     }
 
     deinit {
