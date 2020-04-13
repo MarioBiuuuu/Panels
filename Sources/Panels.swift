@@ -1,7 +1,7 @@
 //
 //  Created by Antonio Casero Palmero on 10.08.18.
 //  Copyright © 2018 Panels. All rights reserved.
-//   
+//
 
 import UIKit
 
@@ -51,8 +51,7 @@ public class Panels {
         registerKeyboardNotifications()
         // Prepare the view placement, saving the safeArea.
         panelHeight = config.heightConstant ?? panel.headerHeight.constant
-//        panel.headerHeight.constant = panelHeight + UIApplication.safeAreaBottom()
-        panel.headerHeight.constant = panelHeight
+        panel.headerHeight.constant = panelHeight + UIApplication.safeAreaBottom()
         setupGestures(headerView: panel.headerPanel, superview: container)
     }
 
@@ -66,23 +65,16 @@ public class Panels {
 
     /// Close the panel
     @objc public func collapsePanel() {
-//        guard isExpanded, let container = containerView else {
-//            return
-//        }
-        guard let container = containerView else {
+        guard isExpanded, let container = containerView else {
             return
         }
-        if isExpanded {
-            movePanel(value: configuration.visibleArea())
-            container.endEditing(true)
-        } else {
-            dismiss()
-        }
+        movePanel(value: configuration.visibleArea())
+        container.endEditing(true)
     }
 
     public func dismiss(completion: (() -> Void)? = nil) {
         panel?.headerHeight.constant = panelHeight
-        guard let panelView = self.panel?.view else {
+        guard let panelView = panel?.view else {
             completion?()
             return
         }
@@ -107,9 +99,9 @@ public class Panels {
 extension Panels {
     private func movePanel(value: CGFloat, keyboard: Bool = false, completion: (() -> Void)? = nil) {
         panelHeightConstraint?.constant = value
-//        if !keyboard {
-//            panel?.headerHeight.constant += isExpanded ? -UIApplication.safeAreaBottom() : UIApplication.safeAreaBottom()
-//        }
+        if !keyboard {
+            panel?.headerHeight.constant += isExpanded ? -UIApplication.safeAreaBottom() : UIApplication.safeAreaBottom()
+        }
         isExpanded ? delegate?.panelDidOpen() : delegate?.panelDidCollapse()
         containerView?.animateLayoutBounce(completion: completion) ?? completion?()
     }
